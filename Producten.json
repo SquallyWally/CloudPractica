@@ -1,0 +1,20 @@
+{"producten":[
+    {
+        "Id" : "01",
+        "Naam": "Hewlett",
+        "Type": "Laptop",
+        "Provider": "Ziggo"
+    },{
+        "Id" : "02",
+        "Naam" : "Huawei",
+        "Type" : "Smartphone",
+        "Provider" : "KPN"
+         
+    },{
+        "Id" : "03",
+        "Naam" : "Lenovo",
+        "Type" : "Thinkpad",
+        "Provider" : "Coolblue"
+    }
+    
+]}
