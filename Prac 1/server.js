@@ -1,28 +1,58 @@
 const mqtt = require('mqtt');
-var stdin = process.stdin;
+const readline = require('readline')
+//var stdin = process.stdin;
 
+readline.emitKeypressEvents(process.stdin);
 
-stdin.resume();
-stdin.setEncoding('utf8');
+process.stdin.on('data', function (key) {
 
+    if(key.ctrl && key.name === 'c'){
+        process.exit()
+    }
 
-
-stdin.on('data', function (key) {
-
+    else{
 
     const kanaal = 'licht';
     const client = mqtt.connect('mqtt://broker.hivemq.com')
+    const kanaal3 = 'opdr_g';
+
+
+
+
+    var waarde = {
+   
+       'Helderheid' : 255,
+        'tijdsduur': 5000
+    }
+
+    var waardeUit = {
+        'Helderheid' : 0,
+        'tijdsduur': 5000
+    }
+
+
 
     client.on('connect', () => {
 
-        client.subscribe(kanaal);
-        console.log('Subbed sender: ' + kanaal);
+
+        console.log('verbonden EN beweging geconstateerd')
+
+        var command = JSON.stringify(waarde)
+      //  var commando = JSON.stringify(waardeUit)
+        console.log(`Verstuurd deze info\t${command}`)
+        client.publish(kanaal, command)
+      //  client.publish(kanaal, commando)
+        client.end()
 
     });
 
     client.on('message', (topic, message) => {
+       
+      
         message = 255;
-        console.log("Client received the following message:\n" + message.toString());
+       client.publish(kanaal, message.toString())
+       
     });
-
+    
+    }
 }); 
